@@ -5,7 +5,8 @@ using namespace std;
 class MyQueue
 {
 private:
-    int A[10];
+    static const int SIZE = 10;
+    int A[SIZE];
     int Rear;
     int Front;
 
@@ -28,12 +29,12 @@ void MyQueue::InitializeQueue()
 
 bool MyQueue::isEmpty()
 {
-    return (Front == -1 || Front > Rear);
+    return (Front == -1 && Rear ==-1);
 }
 
 bool MyQueue::isFull()
 {
-    return (Rear == 9);
+    return (Rear == SIZE - 1);
 }
 
 void MyQueue::Insert(int Value)
@@ -60,9 +61,9 @@ void MyQueue::Remove()
     }
 
     cout << "Removed: " << A[Front] << endl;
+
     Front++;
 
-    // Reset when empty
     if (Front > Rear)
     {
         Front = -1;
@@ -85,7 +86,8 @@ int MyQueue::QueueSize()
 {
     if (isEmpty())
         return 0;
-    return (Rear - Front + 1);
+
+    return Rear - Front + 1;
 }
 
 void MyQueue::PrintQueue()
@@ -97,15 +99,13 @@ void MyQueue::PrintQueue()
     }
 
     for (int i = Front; i <= Rear; i++)
-    {
         cout << A[i] << " ";
-    }
+
     cout << endl;
 }
 
 int main()
 {
-
     MyQueue Q;
     Q.InitializeQueue();
 
@@ -113,7 +113,6 @@ int main()
 
     while (option != 8)
     {
-
         cout << "\n1-Insert";
         cout << "\n2-Remove";
         cout << "\n3-Peek";
@@ -126,17 +125,8 @@ int main()
 
         cin >> option;
 
-        if (cin.fail())
-        {
-            cout << "Numbers only!" << endl;
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            continue;
-        }
-
         switch (option)
         {
-
         case 1:
         {
             int value;
@@ -149,25 +139,21 @@ int main()
         case 2:
             Q.Remove();
             break;
+
         case 3:
             Q.PeekFront();
             break;
+
         case 4:
             cout << "Size: " << Q.QueueSize() << endl;
             break;
 
         case 5:
-            if (Q.isEmpty())
-                cout << "Queue is Empty!" << endl;
-            else
-                cout << "Queue is NOT Empty!" << endl;
+            cout << (Q.isEmpty() ? "Queue is Empty" : "Queue is NOT Empty") << endl;
             break;
 
         case 6:
-            if (Q.isFull())
-                cout << "Queue is Full!" << endl;
-            else
-                cout << "Queue is NOT Full!" << endl;
+            cout << (Q.isFull() ? "Queue is Full" : "Queue is NOT Full") << endl;
             break;
 
         case 7:
@@ -175,12 +161,13 @@ int main()
             break;
 
         case 8:
-            cout << "Thanks for using program!" << endl;
+            cout << "Program End" << endl;
             break;
 
         default:
             cout << "Invalid option!" << endl;
         }
     }
+
     return 0;
 }

@@ -1,10 +1,6 @@
 #include <iostream>
 using namespace std;
 
-// Function to perform insertion sort
-// arr[] = array to sort
-// n = size of array
-// order = true for ascending, false for descending
 void insertionSort(int arr[], int n, bool order) {
 
     for (int i = 1; i < n; i++) {  // Start from second element
